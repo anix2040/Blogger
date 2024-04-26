@@ -1,0 +1,81 @@
+      <script type='text/javascript'>
+                        /*<![CDATA[*/  
+fetch('https://premium-2theme.blogspot.com/feeds/posts/default?max-results=4&random=true&alt=json')
+  .then(response => response.json())
+  .then(data => {
+    // Generate HTML code for each slide
+    const slides = data.feed.entry.map(entry => {
+      const postUrl = entry.link[0].href;
+      const title = entry.title.$t;
+      const content = entry.content.$t;
+      const thumbnailUrl = entry.media$thumbnail ? entry.media$thumbnail.url : '';
+      const categories = entry.category ? entry.category.map(cat => cat.term).join(', ') : '';
+
+      return `
+        <div class="swiper-slide">
+          <div class="mainslider">
+            <div class="limit">
+              <div class="sliderinfo">
+                <div class="sliderinfolimit">
+                  <div class="slidlc">
+                    Chapter: ${Math.floor(Math.random() * 1000)}						
+                  </div>
+                  <a href="${postUrl}">
+                    <span class="name">${title}</span>
+                    <div class="desc">
+                      <p>${content}</p>
+                    </div>
+                  </a>
+                  <div class="meta">
+                    <div class="metas-slider-genres"><span class="metas-genres-values">${categories}</span></div>
+                  </div>
+                  <div class="start-reading">
+                    <a href="${postUrl}">
+                    <span>Mulai Baca <i class="fas fa-long-arrow-alt-right"></i></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="slidtrithumb">
+                <img post-id="12345" fifu-featured="1" width="397" height="619" src="${thumbnailUrl}" class="attachment-full size-full wp-post-image" alt="${title}" title="${title}" decoding="async" />
+                <noscript><img post-id="12345" fifu-featured="1" width="397" height="619" src="${thumbnailUrl}" class="attachment-full size-full wp-post-image" alt="${title}" title="${title}" title="${title}" decoding="async" /></noscript>
+              </div>
+              <div data-bg="${thumbnailUrl}" class="bigbanner img-blur rocket-lazyload" style='background-image: url("${thumbnailUrl}");' post-id="12345"></div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    // Initialize Swiper carousel
+    const swiper = new Swiper('.big-slider.swiperx.swiper-container.slidernom3', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+
+    // Append slides to carousel
+    swiper.appendSlide(slides);
+  })
+  .catch(error => console.error(error)); 
+ const slides = document.querySelectorAll('.swiper-slide');
+
+slides.forEach((slide, index) => {
+  const startReadingButton = slide.querySelector('.start-reading a');
+  const postUrl = startReadingButton.getAttribute('href');
+
+  startReadingButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.href = postUrl;
+  });
+});
+/*]]>*/
+                        </script> 
