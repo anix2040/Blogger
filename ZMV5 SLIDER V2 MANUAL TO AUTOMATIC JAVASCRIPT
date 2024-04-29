@@ -5,7 +5,7 @@ fetch('https://premium-2theme.blogspot.com/feeds/posts/default?max-results=4&ran
   .then(data => {
     // Generate HTML code for each slide
     const slides = data.feed.entry.map(entry => {
-      const postUrl = entry.link[0].href;
+      const postUrl = entry.link[4].href;
       const title = entry.title.$t;
       const content = entry.content.$t;
       const thumbnailUrl = entry.media$thumbnail ? entry.media$thumbnail.url : '';
@@ -37,7 +37,7 @@ fetch('https://premium-2theme.blogspot.com/feeds/posts/default?max-results=4&ran
                 </div>
               </div>
               <div class="slidtrithumb">
-                <img post-id="12345" fifu-featured="1" width="397" height="619" src="${thumbnailUrl}" class="attachment-full size-full wp-post-image" alt="${title}" title="${title}" decoding="async" />
+                <img post-id="12345" fifu-featured="1" width="397" height="619" src="${thumbnailUrl.replace('/s72-c/', '/s0-c/')}" class="attachment-full size-full wp-post-image" alt="${title}" title="${title}" decoding="async" />
                 <noscript><img post-id="12345" fifu-featured="1" width="397" height="619" src="${thumbnailUrl}" class="attachment-full size-full wp-post-image" alt="${title}" title="${title}" title="${title}" decoding="async" /></noscript>
               </div>
               <div data-bg="${thumbnailUrl}" class="bigbanner img-blur rocket-lazyload" style='background-image: url("${thumbnailUrl}");' post-id="12345"></div>
